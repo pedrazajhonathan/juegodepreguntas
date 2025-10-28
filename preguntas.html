@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+        }
+        .padre{
+            width: 50vw;
+            position: relative;
+            top: 10px;
+            padding: 25px 0px;
+            border: 1px solid black;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(107, 7, 201);
+            gap: 20px;
+        }
+
+        #pregunta{
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            color: rgb(255, 255, 255);
+            font-size: 1.4em;
+        }
+        .btn{
+            width: 90%;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all .3s linear;
+            background-color: rgb(255, 255, 255);
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+        }
+        #imagen{
+            margin-bottom: 40px;
+            width: 50%;
+            border-radius: 20px;
+        } 
+        @media (max-width:430px){
+            .padre{
+                width: 90vw;
+            }
+            #imagen{
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="padre">
+  
+            <p id="pregunta"></p>
+            <img id="imagen"></img>
+            <div class="btn botom1" id="botom1" onclick="enviar(0)"></div>
+            <div class="btn botom2" id="botom2" onclick="enviar(1)"></div>
+            <div class="btn botom3" id="botom3" onclick="enviar(2)"></div>
+            <div class="btn botom4" id="botom4" onclick="enviar(3)"></div>
+            
+        </div>
+    </header>
+    <script>
+
+        let pregunta = document.getElementById("pregunta")
+     
+        let preguntas = [
+            {
+                pregunta : "quien pinto la monalisa",
+                respuesta : "leonardo da vincci",
+                respuesta_incorrecta1 : "picasso",
+                respuesta_incorrecta2 : "albert stain",
+                respuesta_incorrecta3 : "cleopatra",
+                img: "assets/monalisa.jpg",
+            },
+            {
+                pregunta : "quien gano el mundial de 2023",
+                respuesta : "messi",
+                respuesta_incorrecta1 : "cristiano ronaldo",
+                respuesta_incorrecta2 : "neimar",
+                respuesta_incorrecta3 : "luis diaz",
+                img: "assets/futbol.jpg"
+            },
+            {
+                pregunta : "cual es el lenguaje de programacion que se utiliza con html y css",
+                respuesta : "javascript",
+                respuesta_incorrecta1 : "python",
+                respuesta_incorrecta2 : "c++",
+                respuesta_incorrecta3 : "java",
+                img: "assets/lenguajes.jpg"
+            },
+            {
+                pregunta : "en que año se descubrio america",
+                respuesta : "1492",
+                respuesta_incorrecta1 : "1503",
+                respuesta_incorrecta2 : "1496",
+                respuesta_incorrecta3 : "1590",
+                img: "assets/america.png"
+            },
+            {
+                pregunta : "cuales son los operadores logicos",
+                respuesta : "AND , OR , NOT",
+                respuesta_incorrecta1 : "if , else",
+                respuesta_incorrecta2 : "true , false",
+                respuesta_incorrecta3 : "string",
+                img: "assets/programacion.jpeg"
+            },
+            {
+                pregunta : "cuanto es 5 + 5 x 9",
+                respuesta : "50",
+                respuesta_incorrecta1 : "45",
+                respuesta_incorrecta2 : "55",
+                respuesta_incorrecta3 : "90",
+                img: "assets/matematica.jpg"
+            },
+            {
+                pregunta : "cual es el rio mas largo del mundo",
+                respuesta : "el rio nilo",
+                respuesta_incorrecta1 : "el rio amazonas",
+                respuesta_incorrecta2 : "el rio orinoco",
+                respuesta_incorrecta3 : "el rio yurubi",
+                img: "assets/rio.jpeg"
+            },
+            {
+                pregunta : "cuantas canchas tiene la universidad UPTYAB",
+                respuesta : "6",
+                respuesta_incorrecta1 : "7",
+                respuesta_incorrecta2 : "3",
+                respuesta_incorrecta3 : "2",
+                img: "assets/uptyab.jpeg"
+            },
+            {
+                pregunta : "cual fue el primer presidente de bolivia",
+                respuesta : "antonio jose de sucre",
+                respuesta_incorrecta1 : "simom bolivar",
+                respuesta_incorrecta2 : "nicolas maduro",
+                respuesta_incorrecta3 : "ezequiel zamora",
+                img: "assets/bolivia.jpg"
+            },
+        ]
+
+        let botom1 = document.getElementById("botom1")
+        let botom2 = document.getElementById("botom2")
+        let botom3 = document.getElementById("botom3")
+        let botom4 = document.getElementById("botom4")
+        let img = document.getElementById("imagen")
+
+        //colocar las preguntas aleatoriamente
+
+        let total_respuesta
+        let pregunta_total
+
+        function pregunta_aleatoria(){
+            let hola = Math.floor(Math.random() * preguntas.length)
+            pregunta_total = preguntas[hola]
+            
+            pregunta.textContent = pregunta_total.pregunta
+
+            let respuestas_aleatoria = 
+            [
+                pregunta_total.respuesta, 
+                pregunta_total.respuesta_incorrecta1, 
+                pregunta_total.respuesta_incorrecta2, 
+                pregunta_total.respuesta_incorrecta3
+            ]
+            total_respuesta = respuestas_aleatoria.sort(()=>Math.random()-0.5)
+            
+            botom1.textContent = total_respuesta[0]
+            botom2.textContent = total_respuesta[1]
+            botom3.textContent = total_respuesta[2]
+            botom4.textContent = total_respuesta[3]
+
+            img.src = pregunta_total.img
+           
+           
+
+        }
+        pregunta_aleatoria()
+        
+        let boton_correcto = [botom1,botom2,botom3,botom4]
+
+        function enviar(i){
+            if(total_respuesta[i] == pregunta_total.respuesta){
+                boton_correcto[i].style.background = "green" 
+                setTimeout(() => {
+                    pregunta_aleatoria()
+                    borrar_color()  
+                }, 1000);  
+            }else{
+                boton_correcto[i].style.background = "red"
+                setTimeout(() => {
+                    alert("respuesta incorrecta, actualize la pagina para jugar de nuevo")
+                    borrar_color()  
+                    pregunta_aleatoria()
+                }, 1000);    
+            }
+        }
+
+        function borrar_color(){
+            boton_correcto.forEach(boto => {
+                boto.style.background = "#fff"
+            })
+        }
+
+
+     
+
+
+
+      
+
+    </script>
+</body>
+</html>
