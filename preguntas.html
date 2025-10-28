@@ -18,8 +18,9 @@
         .padre{
             width: 50vw;
             position: relative;
+            padding: 10px 30px;
             top: 10px;
-            padding: 25px 0px;
+            padding: 25px 30px;
             border: 1px solid black;
             border-radius: 10px;
             display: flex;
@@ -28,17 +29,40 @@
             justify-content: center;
             background-color: rgb(107, 7, 201);
             gap: 20px;
+            box-sizing: border-box;
+            background-image: url(assets/futbol.jpg);
+            background-size: 400% 300%;
+            animation: mover 10s linear infinite alternate;
+        }
+        @keyframes mover{
+            0%{
+                background-position: 0% 50%;
+            }
+            50%{
+                background-position: 50% 100%;
+            }
+            100%{
+                background-position: 0% 50%;
+            }
         }
 
         #pregunta{
             text-align: center;
-            font-family: 'Courier New', Courier, monospace;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             position: relative;
             color: rgb(255, 255, 255);
             font-size: 1.4em;
         }
+        .relleno{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            border-radius: 10px;
+            backdrop-filter: blur(40px);
+        }
         .btn{
-            width: 90%;
+            width: 100%;
             height: 40px;
             cursor: pointer;
             border-radius: 4px;
@@ -48,30 +72,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
             position: relative;
+            text-transform: capitalize;
         }
-        #imagen{
-            margin-bottom: 40px;
-            width: 50%;
-            border-radius: 20px;
-        } 
+        #puntuacion{
+            position: relative;
+            color: aliceblue;
+            margin-bottom: 00px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
         @media (max-width:430px){
             .padre{
                 width: 90vw;
+                
             }
-            #imagen{
-                width: 80%;
-            }
+   
         }
     </style>
 </head>
 <body>
     <header>
         <div class="padre">
-  
+            <div class="relleno"></div>
+            <p id="puntuacion">puntuacion : <span id="puntos">0</span></p>
             <p id="pregunta"></p>
-            <img id="imagen"></img>
+          
             <div class="btn botom1" id="botom1" onclick="enviar(0)"></div>
             <div class="btn botom2" id="botom2" onclick="enviar(1)"></div>
             <div class="btn botom3" id="botom3" onclick="enviar(2)"></div>
@@ -85,20 +111,43 @@
      
         let preguntas = [
             {
-                pregunta : "quien pinto la monalisa",
-                respuesta : "leonardo da vincci",
-                respuesta_incorrecta1 : "picasso",
-                respuesta_incorrecta2 : "albert stain",
-                respuesta_incorrecta3 : "cleopatra",
+                pregunta : "cual es el valor de true en un lenguaje de programacion",
+                respuesta : "1",
+                respuesta_incorrecta1 : "0",
+                respuesta_incorrecta2 : "2",
+                respuesta_incorrecta3 : "10",
                 img: "assets/monalisa.jpg",
             },
             {
-                pregunta : "quien gano el mundial de 2023",
-                respuesta : "messi",
-                respuesta_incorrecta1 : "cristiano ronaldo",
-                respuesta_incorrecta2 : "neimar",
-                respuesta_incorrecta3 : "luis diaz",
-                img: "assets/futbol.jpg"
+                pregunta : "cuales son las caracteristicas de la programacion orientada a objetos",
+                respuesta : "herencia ,encapsulamiento ,abstraccion, polimorfismo",
+                respuesta_incorrecta1 : "true , false",
+                respuesta_incorrecta2 : "if , else",
+                respuesta_incorrecta3 : "for , while y do while",
+                img: "assets/monalisa.jpg",
+            },
+            {
+                pregunta : "cuales son las bases de la programacion orientada a objetos",
+                respuesta : "objetos , clases , atributos , metodos",
+                respuesta_incorrecta1 : "objetos , condicionales y bucles",
+                respuesta_incorrecta2 : "bucles y sentencias",
+                respuesta_incorrecta3 : "claslist , type of , instance of",
+                img: "assets/monalisa.jpg",
+            },
+            {
+                pregunta : "cual es la forma correcta de recibir una promesa de una API en una funcion ",
+                respuesta : "async y await",
+                respuesta_incorrecta1 : " then y cacth",
+                respuesta_incorrecta2 : "this y exec",
+                respuesta_incorrecta3 : "thes y search",
+                img: "assets/monalisa.jpg",
+            },
+            {
+                pregunta : "cual es el lenguaje que se utiliza para machine learning e inteligencia artificial",
+                respuesta : "Python",
+                respuesta_incorrecta1 : "go",
+                respuesta_incorrecta2 : "php",
+                respuesta_incorrecta3 : "javascript",
             },
             {
                 pregunta : "cual es el lenguaje de programacion que se utiliza con html y css",
@@ -109,12 +158,11 @@
                 img: "assets/lenguajes.jpg"
             },
             {
-                pregunta : "en que año se descubrio america",
-                respuesta : "1492",
-                respuesta_incorrecta1 : "1503",
-                respuesta_incorrecta2 : "1496",
-                respuesta_incorrecta3 : "1590",
-                img: "assets/america.png"
+                pregunta : "cual es el lenguaje mas utilizado para crear bases de datos",
+                respuesta : "SQL",
+                respuesta_incorrecta1 : "Python",
+                respuesta_incorrecta2 : "C#",
+                respuesta_incorrecta3 : "Ruby",
             },
             {
                 pregunta : "cuales son los operadores logicos",
@@ -133,28 +181,33 @@
                 img: "assets/matematica.jpg"
             },
             {
-                pregunta : "cual es el rio mas largo del mundo",
-                respuesta : "el rio nilo",
-                respuesta_incorrecta1 : "el rio amazonas",
-                respuesta_incorrecta2 : "el rio orinoco",
-                respuesta_incorrecta3 : "el rio yurubi",
+                pregunta : "cual es la etiqueta que se utiliza en html para crear parrafos",
+                respuesta : "<p>",
+                respuesta_incorrecta1 : "<span>",
+                respuesta_incorrecta2 : "<h1>",
+                respuesta_incorrecta3 : "<div>",
                 img: "assets/rio.jpeg"
             },
             {
-                pregunta : "cuantas canchas tiene la universidad UPTYAB",
-                respuesta : "6",
-                respuesta_incorrecta1 : "7",
-                respuesta_incorrecta2 : "3",
-                respuesta_incorrecta3 : "2",
-                img: "assets/uptyab.jpeg"
+                pregunta : "como se puede imprimir en consola 'hola mundo' en el lenguaje de javascirpt",
+                respuesta : "console.log('hola mundo')",
+                respuesta_incorrecta1 : "alert('hola mundo')",
+                respuesta_incorrecta2 : "promp('hola mundo')",
+                respuesta_incorrecta3 : "print('hola mundo')",
             },
             {
-                pregunta : "cual fue el primer presidente de bolivia",
-                respuesta : "antonio jose de sucre",
-                respuesta_incorrecta1 : "simom bolivar",
-                respuesta_incorrecta2 : "nicolas maduro",
-                respuesta_incorrecta3 : "ezequiel zamora",
-                img: "assets/bolivia.jpg"
+                pregunta : "cual es el bucle que se repite solo cuando se cumple la condicion",
+                respuesta : "while",
+                respuesta_incorrecta1 : "for",
+                respuesta_incorrecta2 : "forin",
+                respuesta_incorrecta3 : "forof",
+            },
+            {
+                pregunta : "con que bucle se recorren los objetos en javascript",
+                respuesta : "forin",
+                respuesta_incorrecta1 : "for",
+                respuesta_incorrecta2 : "foreach",
+                respuesta_incorrecta3 : "forof",
             },
         ]
 
@@ -163,17 +216,27 @@
         let botom3 = document.getElementById("botom3")
         let botom4 = document.getElementById("botom4")
         let img = document.getElementById("imagen")
+        let punto = 0
+        let puntos = document.getElementById("puntos")
 
         //colocar las preguntas aleatoriamente
 
         let total_respuesta
         let pregunta_total
+        let nombre_jugador
 
+        nombre_jugador = prompt("primero que todo coloce su nombre , si llegas a 10 puntos ganas el juego")
+        
         function pregunta_aleatoria(){
             let hola = Math.floor(Math.random() * preguntas.length)
             pregunta_total = preguntas[hola]
             
-            pregunta.textContent = pregunta_total.pregunta
+            if(nombre_jugador){
+                pregunta.textContent = `oye ${nombre_jugador} ${pregunta_total.pregunta}`
+            }else{
+                pregunta.textContent = `oye fulano sin nombre ${pregunta_total.pregunta}`
+            }
+
 
             let respuestas_aleatoria = 
             [
@@ -189,10 +252,8 @@
             botom3.textContent = total_respuesta[2]
             botom4.textContent = total_respuesta[3]
 
-            img.src = pregunta_total.img
-           
-           
-
+            puntos.textContent = punto
+            
         }
         pregunta_aleatoria()
         
@@ -204,11 +265,17 @@
                 setTimeout(() => {
                     pregunta_aleatoria()
                     borrar_color()  
+                    ganar(punto)
                 }, 1000);  
+                punto ++
             }else{
                 boton_correcto[i].style.background = "red"
                 setTimeout(() => {
-                    alert("respuesta incorrecta, actualize la pagina para jugar de nuevo")
+                    if(nombre_jugador){
+                        alert(`¡${nombre_jugador}! perdiste :( , actualiza la pagina para jugar de nuevo`)
+                    }else{
+                        alert(`fulano sin nombre , perdiste :( , actualiza la pagina para jugar de nuevo y coloca tu nombre ¡conchale!`)
+                    }
                     borrar_color()  
                     pregunta_aleatoria()
                 }, 1000);    
@@ -221,6 +288,17 @@
             })
         }
 
+        function ganar(){
+            if(punto == 10){
+                if(nombre_jugador){
+                    alert(`! felicidades ${nombre_jugador}¡ has ganado el juego y tienes un conocimiento basico sobre los fundamentos de la programacion`)
+                   
+                }else{
+                    alert(`¡ felicidades fulano ! has ganado el juego y tienes un conocimiento basico sobre los fundamentos de la programacion`)
+                   
+                }
+            }
+        }
 
      
 
